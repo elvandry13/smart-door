@@ -20,7 +20,7 @@
 #define deviceSwitchStatus "switch-status"
 
 #define ALARM D7 // Alarm pin on D7
-#define MAGNET D4 // Sensor pin on D4
+#define LS D5 // Sensor pin on D5
 
 AntaresESP8266HTTP antares(ACCESSKEY);
 
@@ -38,7 +38,7 @@ void setup()
     digitalWrite(ALARM, LOW);
 
     // Button pin set as input
-    pinMode(MAGNET, INPUT_PULLUP);
+    pinMode(LS, INPUT);
 
     // Antares connection setup
     antares.setDebug(true);
@@ -48,10 +48,10 @@ void setup()
 void loop()
 {
     // Read magnetic sensor
-	int readSensor = digitalRead(MAGNET);
+	int readSensor = digitalRead(LS);
     Serial.println(readSensor);
 
-    if (readSensor == HIGH)
+    if (readSensor == LOW)
     {
         Serial.println("OPEN");
         doorState = "open";
@@ -92,5 +92,5 @@ void loop()
         }
     }
 
-    delay(5000);
+    delay(1000);
 }
